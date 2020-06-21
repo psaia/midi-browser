@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>ihi</title>
+  <script src="https://unpkg.com/tone"></script>
+</head>
+<body>
+  <button>start</button>
+
+  <script>
+    var synth = new Tone.Synth().toMaster();
+    conn = new WebSocket("ws://" + document.location.host + "/ws");
+    conn.onclose = function (evt) {
+      console.log("CLOSED", evt);
+    };
+    document.querySelector('button').addEventListener('click', async () => {
+      await Tone.start()
+      console.log('audio is ready')
+      conn.onmessage = function (evt) {
+        const data = JSON.parse(evt.data);
+        console.log(data);
+        const inputType = data.Data1;
+        const force = data.Data2;
+
+        if (inputType < 29) {
+          synth.triggerAttackRelease(Tone.Frequency(inputType + 200), "8n");
+        } else {
+          synth.triggerAttackRelease(Tone.Frequency(inputType), "8n");
+        }
+        // var synth = new Tone.Synth().toMaster()
+        //
+        // //play a middle 'C' for the duration of an 8th note
+        // synth.triggerAttackRelease('C4', '8n')
+      };
+    })
+  </script>
+</body>
+</html>
