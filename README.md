@@ -4,7 +4,7 @@ This allows for your midi keyboard to work in the browser via a websocket server
 
 Run:
 
-* `Plug in midi keyboard`
+* Plug in midi keyboard
 * `brew install portmidi`
 * `go run main.go`
-* `Visit localhost:8080 and press start and play`
+* Visit *localhost:8080* and press start and play
