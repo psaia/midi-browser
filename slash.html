@@ -24,6 +24,10 @@
         const inputType = data.Data1;
         const force = data.Data2;
 
+        if (force === 0) {
+          return;
+        }
+
         if (inputType < 29) {
           synth.triggerAttackRelease(Tone.Frequency(inputType + 200), "8n");
         } else {
